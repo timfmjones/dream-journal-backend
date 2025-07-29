@@ -1,0 +1,98 @@
+// dream-log-backend/prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  firebaseUid   String    @unique
+  email         String    @unique
+  displayName   String?
+  photoURL      String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  dreams        Dream[]
+  dreamAnalyses DreamAnalysis[]
+  
+  @@index([firebaseUid])
+  @@index([email])
+}
+
+model Dream {
+  id            String    @id @default(cuid())
+  userId        String
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Dream content
+  title         String?
+  dreamText     String    @db.Text
+  date          DateTime  @default(now())
+  
+  // Story generation
+  story         String?   @db.Text
+  storyTone     String?   // whimsical, mystical, adventurous, etc.
+  storyLength   String?   // short, medium, long
+  
+  // Voice memo
+  hasAudio      Boolean   @default(false)
+  audioUrl      String?
+  audioDuration Int?      // in seconds
+  
+  // Metadata
+  isPrivate     Boolean   @default(true)
+  isFavorite    Boolean   @default(false)  // NEW FIELD
+  tags          String[]  @default([])
+  mood          String?   // happy, anxious, peaceful, etc.
+  lucidity      Int?      // 1-5 scale
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  images        DreamImage[]
+  analyses      DreamAnalysis[]
+  
+  @@index([userId])
+  @@index([date])
+  @@index([createdAt])
+  @@index([isFavorite])  // NEW INDEX
+}
+
+model DreamImage {
+  id            String    @id @default(cuid())
+  dreamId       String
+  dream         Dream     @relation(fields: [dreamId], references: [id], onDelete: Cascade)
+  
+  url           String
+  scene         String    // Scene 1, Scene 2, Scene 3
+  description   String
+  prompt        String?   @db.Text
+  
+  createdAt     DateTime  @default(now())
+  
+  @@index([dreamId])
+}
+
+model DreamAnalysis {
+  id            String    @id @default(cuid())
+  dreamId       String
+  dream         Dream     @relation(fields: [dreamId], references: [id], onDelete: Cascade)
+  userId        String
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  analysisText  String    @db.Text
+  symbols       Json?     // Array of identified symbols and meanings
+  themes        String[]  // Extracted themes
+  emotions      String[]  // Identified emotions
+  
+  createdAt     DateTime  @default(now())
+  
+  @@index([dreamId])
+  @@index([userId])
+}
