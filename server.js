@@ -14,6 +14,7 @@ require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const HOST = '0.0.0.0'; // Important for Railway
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 // Security middleware
@@ -834,8 +835,8 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 // Start server
-const server = app.listen(PORT, () => {
-  console.log(`Dream Log Backend running on port ${PORT}`);
+const server = app.listen(PORT, HOST, () => {
+  console.log(`Dream Log Backend running on ${HOST}:${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV}`);
   console.log(`OpenAI API: ${API_CONFIG.openai.apiKey ? 'Configured' : 'Not configured'}`);
   console.log(`Firebase Admin: ${process.env.FIREBASE_PROJECT_ID ? 'Configured' : 'Not configured'}`);
