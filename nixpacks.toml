@@ -3,7 +3,7 @@
 nixPkgs = ["nodejs", "npm"]
 
 [phases.install]
-cmds = ["npm ci --production=false"]
+cmds = ["npm ci"]
 
 [phases.build]
 cmds = ["npm run build"]
