@@ -488,12 +488,12 @@ app.post('/api/generate-story', storyLimiter, async (req, res) => {
     }
 
     const tonePrompts = {
-      whimsical: "Transform this dream into a whimsical, playful fairy tale with magical creatures, rainbow colors, and joyful adventures. Make it feel like a Disney story with wonder and delight.",
+      whimsical: "Transform this dream into a whimsical fairy tale bursting with magical creatures, rainbow-colored landscapes, and heartwarming adventures. Infuse it with the playful wonder of a classic Disney story—full of delightful surprises, quirky characters, and just the right sprinkle of comedy. Think enchanted forests where frogs gossip, spells occasionally backfire in funny ways, and joy shines through every twist and turn.",
       mystical: "Transform this dream into a mystical, magical fairy tale with ancient wisdom, ethereal beings, and spiritual undertones. Include elements of wonder, mystery, and enlightenment.",
       adventurous: "Transform this dream into an adventurous, bold fairy tale with brave heroes, epic quests, and thrilling challenges. Make it exciting and action-packed with courage and triumph.",
       gentle: "Transform this dream into a gentle, soothing fairy tale with kind characters, peaceful settings, and heartwarming moments. Make it comforting, tender, and full of love.",
       mysterious: "Transform this dream into a mysterious, dark fairy tale with shadows, secrets, and intriguing plot twists. Keep it atmospheric and engaging but not too scary.",
-      comedy: "Transform this dream into a mysterious, dark fairy tale with sarcastic humor, dramatic secrets, and absurd plot twists. Keep it atmospheric and intriguing, but make it funny, more spooky comedy than actual horror."
+      comedy: "Transform this dream into a delightfully quirky fairy tale filled with spooky charm, sarcastic humor, and over-the-top plot twists. Think enchanted castles with passive-aggressive ghosts, dramatic family secrets that unravel hilariously, and magical mishaps that somehow make things worse (but funnier). Keep the atmosphere mysterious and whimsical—more haunted tea party than true horror—with a lighthearted tone that makes the weirdness feel magical and entertaining."
     };
 
     const lengthPrompts = {
@@ -636,7 +636,7 @@ app.post('/api/generate-images', imageLimiter, async (req, res) => {
       adventurous: "epic fantasy illustration, adventure book art style, dynamic composition, heroic and bold",
       gentle: "soft watercolor fairy tale illustration, pastel colors, gentle and peaceful, children's book style",
       mysterious: "gothic fairy tale illustration, dramatic shadows, mysterious atmosphere, dark fantasy art",
-      comedy: "whimsical spooky comedy illustration, Tim Burton style, quirky characters, humorous dark fantasy"
+      comedy: "whimsical silly comedy illustration, Pixar style, quirky characters, humorous ridiculous fantasy"
     };
 
     const baseStyle = stylePrompts[tone] || stylePrompts.whimsical;
