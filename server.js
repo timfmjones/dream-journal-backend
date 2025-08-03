@@ -640,7 +640,7 @@ app.post('/api/generate-images', imageLimiter, async (req, res) => {
     };
 
     const baseStyle = stylePrompts[tone] || stylePrompts.whimsical;
-    const commonStyle = `${baseStyle}, high quality, detailed artwork, storybook illustration, beautiful composition, no text, no words, no letters, no writing, text-free illustration`;
+    const commonStyle = `${baseStyle}, high quality, detailed artwork, storybook illustration, beautiful composition, IMPORTANT: NO TEXT, no words, no letters, NO WRITING, text-free illustration`;
 
     const segments = extractStorySegments(story);
     
